@@ -71,6 +71,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'users', 'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGIN_URL = 'login'
+
 # Console email backend for development: prints emails to console
 
 

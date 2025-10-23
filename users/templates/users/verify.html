@@ -70,10 +70,10 @@
 								<h2 class="text-center text-primary">Email Verification</h2>
 							</div>
 							{% if status == "success" %}
-                <h2>Email Verified Successfully!</h2>
+                <div class="alert alert-success" role="alert">Email Verified Successfully!</div>
                 <a href="{% url 'login' %}" class="btn btn-primary btn-lg btn-block mb-20">You can now login</a>
               {% else %}
-                <h2>Invalid or Expired Link.</h2>
+                <div class="alert alert-danger" role="alert">Invalid or Expired Link.</div>
               {% endif %}
 						</div>
 					</div>

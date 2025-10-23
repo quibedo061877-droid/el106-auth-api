@@ -3,7 +3,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail, EmailMessage, EmailMultiAlternatives
+from django.contrib.sites.shortcuts import get_current_site
 from django.conf import settings
 from django.contrib import messages
 from .serializers import RegisterSerializer
@@ -14,6 +16,7 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from django.contrib.auth.hashers import make_password
 
+@login_required
 def home_page(request):
     return render(request, 'users/home.html')
 
@@ -42,12 +45,39 @@ def register_page(request):
 
         token = email_verification_token.make_token(user)
         verify_url = request.build_absolute_uri(f"/verify-email/?uid={user.pk}&token={token}")
-        send_mail(
-            "Verify your account",
-            f"Click to verify: {verify_url}",
+        # Create email content
+        subject = "Verify your account"
+        text_content = f"Verify your account using the link below:\n{verify_url}"
+        html_content = f"""
+            <html>
+                <body style="font-family: Arial, sans-serif; color: #333;">
+                    <h2>Verify your account</h2>
+                    <p>Hi {user.username},</p>
+                    <p>Click the button below to verify:</p>
+                    <p>
+                        <a href="{verify_url}" 
+                            style="display:inline-block;
+                                    background-color:#007bff;
+                                    color:white;
+                                    padding:10px 20px;
+                                    text-decoration:none;
+                                    border-radius:5px;
+                                    font-weight:bold;">
+                            Verify your account
+                        </a>
+                    </p>
+                </body>
+            </html>
+        """
+        # Send email with HTML alternative
+        email_message = EmailMultiAlternatives(
+            subject,
+            text_content,
             settings.DEFAULT_FROM_EMAIL,
-            [email],
+            [email]
         )
+        email_message.attach_alternative(html_content, "text/html")
+        email_message.send()
         messages.success(request, "Registration successful! Check your email (console) for verification link.")
         return redirect('login')
 

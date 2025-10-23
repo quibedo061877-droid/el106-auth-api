@@ -61,7 +61,7 @@ def login_page(request):
         if user:
             if user.is_active:
                 auth_login(request, user)
-                return redirect('profile')
+                return redirect('home')
             else:
                 messages.error(request, "Please verify your email first.")
         else:

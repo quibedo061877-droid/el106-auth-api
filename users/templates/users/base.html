@@ -177,10 +177,9 @@
       <div class="menu-block customscroll">
         <div class="sidebar-menu">
           <ul id="accordion-menu">
-            <li>
-              <a
+            <li><a
                 href="{% url 'home' %}"
-                class="dropdown-toggle no-arrow"
+                class="dropdown-toggle no-arrow {% if request.resolver_match.url_name == 'home' %}active{% endif %}"
               >
                 <span class="micon bi bi-house"></span
                 ><span class="mtext">Home</span>
@@ -189,7 +188,7 @@
             <li>
               <a
                 href="{% url 'profile' %}"
-                class="dropdown-toggle no-arrow"
+                class="dropdown-toggle no-arrow {% if request.resolver_match.url_name == 'profile' %}active{% endif %}"
               >
                 <span class="micon dw dw-user1"></span
                 ><span class="mtext">Profile</span>

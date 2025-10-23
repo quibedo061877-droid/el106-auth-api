@@ -4,25 +4,255 @@
 <head>
   <meta charset="UTF-8">
   <title>{% block title %}EL106 Auth{% endblock %}</title>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <!-- Site favicon -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{% static 'vendors/images/apple-touch-icon.png' %}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{% static 'vendors/images/favicon-32x32.png' %}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{% static 'vendors/images/favicon-16x16.png' %}"
+    />
+  <!-- Mobile Specific Metas -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'vendors/styles/core.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'vendors/styles/icon-font.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'vendors/styles/style.css' %}"
+    />
 </head>
-<body>
-  <header>
-    <h1>EL106 Authentication System</h1>
-    <nav>
-      <a href="{% url 'home' %}">Home</a> |
-      <a href="{% url 'register' %}">Register</a> |
-      <a href="{% url 'login' %}">Login</a> |
-      <a href="{% url 'profile' %}">Profile</a> |
-      <a href="{% url 'forgot-password' %}">Forgot Password</a> |
-      <a href="/swagger/">API Docs</a>
-    </nav>
-  </header>
-  <main>
-    {% for message in messages %}
-      <p class="message {{ message.tags }}">{{ message }}</p>
-    {% endfor %}
-    {% block content %}{% endblock %}
-  </main>
+<body class="sidebar-light">
+  <div class="header">
+      <div class="header-left">
+        <div class="menu-icon bi bi-list"></div>
+        <div
+          class="search-toggle-icon bi bi-search"
+          data-toggle="header_search"
+        ></div>
+        <div class="header-search">
+          <form>
+            <div class="form-group mb-0">
+              <i class="dw dw-search2 search-icon"></i>
+              <input
+                type="text"
+                class="form-control search-input"
+                placeholder="Search Here"
+              />
+              <div class="dropdown">
+                <a
+                  class="dropdown-toggle no-arrow"
+                  href="#"
+                  role="button"
+                  data-toggle="dropdown"
+                >
+                  <i class="ion-arrow-down-c"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                  <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label"
+                      >From</label
+                    >
+                    <div class="col-sm-12 col-md-10">
+                      <input
+                        class="form-control form-control-sm form-control-line"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label">To</label>
+                    <div class="col-sm-12 col-md-10">
+                      <input
+                        class="form-control form-control-sm form-control-line"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label"
+                      >Subject</label
+                    >
+                    <div class="col-sm-12 col-md-10">
+                      <input
+                        class="form-control form-control-sm form-control-line"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <button class="btn btn-primary">Search</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="user-info-dropdown">
+          <div class="dropdown">
+            <a
+              class="dropdown-toggle"
+              href="#"
+              role="button"
+              data-toggle="dropdown"
+            >
+              <span class="user-icon">
+                <img src="{% static 'vendors/images/photo1.jpg' %}" alt="" />
+              </span>
+              <span class="user-name">{{ request.user.username }}</span>
+            </a>
+            <div
+              class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
+            >
+              <a class="dropdown-item" href="{% url 'profile' %}"
+                ><i class="dw dw-user1"></i> Profile</a
+              >
+              <a class="dropdown-item" href="profile.html"
+                ><i class="dw dw-settings2"></i> Setting</a
+              >
+              <a class="dropdown-item" href="faq.html"
+                ><i class="dw dw-help"></i> Help</a
+              >
+              <a class="dropdown-item" href="{% url 'logout' %}"
+                ><i class="dw dw-logout"></i> Log Out</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="github-link">
+          <a href="https://github.com/quibedo061877-droid/AuthenticationProject" target="_blank"
+            ><img src="{% static 'vendors/images/github.svg' %}" alt=""
+          /></a>
+        </div>
+      </div>
+    </div>
+        <div class="left-side-bar">
+      <div class="brand-logo">
+        <a href="{% url 'home' %}">
+          <img
+            src="{% static 'vendors/images/deskapp-logo.svg' %}"
+            alt=""
+            class="dark-logo"
+          />
+          <img
+            src="{% static 'vendors/images/deskapp-logo-white.svg' %}"
+            alt=""
+            class="light-logo"
+          />
+        </a>
+        <div class="close-sidebar" data-toggle="left-sidebar-close">
+          <i class="ion-close-round"></i>
+        </div>
+      </div>
+      <div class="menu-block customscroll">
+        <div class="sidebar-menu">
+          <ul id="accordion-menu">
+            <li>
+              <a
+                href="{% url 'home' %}"
+                class="dropdown-toggle no-arrow active"
+              >
+                <span class="micon bi bi-house"></span
+                ><span class="mtext">Home</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="{% url 'profile' %}"
+                class="dropdown-toggle no-arrow"
+              >
+                <span class="micon bi bi-house"></span
+                ><span class="mtext">Profile</span>
+              </a>
+            </li>
+            <li>
+              <a
+                href="/swagger/"
+                class="dropdown-toggle no-arrow"
+              >
+                <span class="micon bi bi-house"></span
+                ><span class="mtext">API Docs</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="mobile-menu-overlay"></div>
+     <div class="main-container">
+      <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+          <div class="page-header">
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <div class="title">
+                  <h4>EL106 Authentication System</h4>
+                </div>
+                <nav aria-label="breadcrumb" role="navigation">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                      <a href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      You are here
+                    </li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+          <div class="pd-20 bg-white border-radius-4 box-shadow mb-30">
+            {% for message in messages %}
+              <p class="message {{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+            {% block content %}{% endblock %}
+
+          </div>
+        </div>
+        <div class="footer-wrap pd-20 mb-20 card-box">
+          EL 106 - Mobile Application Development &copy; 2025
+          <a
+            href="https://github.com/quibedo061877-droid/el106-auth-api"
+            target="_blank"
+            >Django User Authentication API</a
+          >
+        </div>
+      </div>
+    </div>
+    <!-- js -->
+    <script src="{% static 'vendors/scripts/core.js' %}"></script>
+    <script src="{% static 'vendors/scripts/script.min.js' %}"></script>
+    <script src="{% static 'vendors/scripts/process.js' %}"></script>
+    <script src="{% static 'vendors/scripts/layout-settings.js' %}"></script>
 </body>
 </html>

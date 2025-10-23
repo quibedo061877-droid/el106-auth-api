@@ -1,0 +1,10 @@
+{% extends 'users/base.html' %}
+{% block title %}Email Verification{% endblock %}
+{% block content %}
+  {% if status == "success" %}
+    <h2>Email Verified Successfully!</h2>
+    <p>You can now <a href="{% url 'login' %}">login</a>.</p>
+  {% else %}
+    <h2>Invalid or Expired Link.</h2>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}EL106 Auth{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <header>
+    <h1>EL106 Authentication System</h1>
+    <nav>
+      <a href="{% url 'home' %}">Home</a> |
+      <a href="{% url 'register' %}">Register</a> |
+      <a href="{% url 'login' %}">Login</a> |
+      <a href="{% url 'profile' %}">Profile</a> |
+      <a href="{% url 'forgot-password' %}">Forgot Password</a> |
+      <a href="/swagger/">API Docs</a>
+    </nav>
+  </header>
+  <main>
+    {% for message in messages %}
+      <p class="message {{ message.tags }}">{{ message }}</p>
+    {% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

@@ -1,0 +1,52 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f9fafb;
+  color: #333;
+  text-align: center;
+  margin: 0;
+  padding-bottom: 40px;
+}
+
+header {
+  background-color: #004aad;
+  color: white;
+  padding: 12px;
+}
+
+nav a {
+  color: white;
+  margin: 0 8px;
+  text-decoration: none;
+}
+
+main {
+  margin-top: 20px;
+}
+
+form input, form button {
+  margin: 8px;
+  padding: 10px;
+  width: 260px;
+}
+
+button {
+  background-color: #004aad;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+button:hover {
+  background-color: #003380;
+}
+
+.message {
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 5px;
+  width: 60%;
+  text-align: left;
+}
+.message.success { background-color: #d4edda; color: #155724; }
+.message.error { background-color: #f8d7da; color: #721c24; }

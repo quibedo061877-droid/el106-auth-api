@@ -150,7 +150,7 @@
           </div>
         </div>
         <div class="github-link">
-          <a href="https://github.com/quibedo061877-droid/AuthenticationProject" target="_blank"
+          <a href="https://github.com/quibedo061877-droid/el106-auth-api" target="_blank"
             ><img src="{% static 'vendors/images/github.svg' %}" alt=""
           /></a>
         </div>
@@ -180,7 +180,7 @@
             <li>
               <a
                 href="{% url 'home' %}"
-                class="dropdown-toggle no-arrow active"
+                class="dropdown-toggle no-arrow"
               >
                 <span class="micon bi bi-house"></span
                 ><span class="mtext">Home</span>
@@ -191,7 +191,7 @@
                 href="{% url 'profile' %}"
                 class="dropdown-toggle no-arrow"
               >
-                <span class="micon bi bi-house"></span
+                <span class="micon dw dw-user1"></span
                 ><span class="mtext">Profile</span>
               </a>
             </li>
@@ -200,7 +200,7 @@
                 href="/swagger/"
                 class="dropdown-toggle no-arrow"
               >
-                <span class="micon bi bi-house"></span
+                <span class="micon dw dw-settings2"></span
                 ><span class="mtext">API Docs</span>
               </a>
             </li>
@@ -212,25 +212,6 @@
      <div class="main-container">
       <div class="pd-ltr-20 xs-pd-20-10">
         <div class="min-height-200px">
-          <div class="page-header">
-            <div class="row">
-              <div class="col-md-6 col-sm-12">
-                <div class="title">
-                  <h4>EL106 Authentication System</h4>
-                </div>
-                <nav aria-label="breadcrumb" role="navigation">
-                  <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                      <a href="{% url 'home' %}">Home</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                      You are here
-                    </li>
-                  </ol>
-                </nav>
-              </div>
-            </div>
-          </div>
           <div class="pd-20 bg-white border-radius-4 box-shadow mb-30">
             {% for message in messages %}
               <p class="message {{ message.tags }}">{{ message }}</p>

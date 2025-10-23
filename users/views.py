@@ -124,12 +124,39 @@ def forgot_password_page(request):
             user = User.objects.get(email=email)
             token = password_reset_token.make_token(user)
             reset_url = request.build_absolute_uri(f"/reset-password/?uid={user.pk}&token={token}")
-            send_mail(
-                "Reset Your Password",
-                f"Click the link to reset your password: {reset_url}",
+            # Create email content
+            subject = "Reset Your Password"
+            text_content = f"Click the link to reset your password:\n{reset_url}"
+            html_content = f"""
+                <html>
+                    <body style="font-family: Arial, sans-serif; color: #333;">
+                        <h2>Reset Your Password</h2>
+                        <p>Hi {user.username},</p>
+                        <p>Click the button below to reset your password:</p>
+                        <p>
+                            <a href="{reset_url}" 
+                                style="display:inline-block;
+                                        background-color:#007bff;
+                                        color:white;
+                                        padding:10px 20px;
+                                        text-decoration:none;
+                                        border-radius:5px;
+                                        font-weight:bold;">
+                                Reset Password
+                            </a>
+                        </p>
+                    </body>
+                </html>
+            """
+            # Send email with HTML alternative
+            email_message = EmailMultiAlternatives(
+                subject,
+                text_content,
                 settings.DEFAULT_FROM_EMAIL,
-                [email],
+                [email]
             )
+            email_message.attach_alternative(html_content, "text/html")
+            email_message.send()
             messages.success(request, "Password reset link has been sent to your email (console).")
         except User.DoesNotExist:
             messages.error(request, "No account found with that email.")
